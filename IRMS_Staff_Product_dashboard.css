@@ -1,0 +1,151 @@
+/* General body and layout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f7fa;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header with buttons */
+header {
+  background:#2c3e50;
+  color:white;
+  padding:20px;
+  font-size:26px;
+  font-weight:bold;
+  position:relative;
+  text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+header a.title-link {
+  color:white;
+  text-decoration:none;
+}
+
+header .home-btn, header .logout-btn {
+  position:absolute; top:50%; transform:translateY(-50%);
+  padding:8px 16px; background:#3498db; color:white;
+  text-decoration:none; border-radius:6px; font-size:14px;
+}
+
+header .home-btn { left:20px; }
+header .logout-btn { right:20px; background:#e74c3c; }
+
+header .home-btn:hover { background:#2980b9; }
+header .logout-btn:hover { background:#c0392b; }
+
+/* Back button at top-left corner */
+.top-left-back {
+  position: relative;
+  margin: 20px 0 15px 20px;
+  text-align: left;
+  z-index: 10;
+}
+
+.top-left-back .back-btn {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.top-left-back .back-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Table container with scroll */
+.table-container {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 70vh;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+table th, table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+table th {
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.01);
+  transition: all 0.2s;
+}
+
+/* Latest Admin order - red and bold */
+tr.recent {
+  background-color: #ffcccc;
+  font-weight: bold;
+}
+
+/* Send to Delivery Man button near footer */
+.send-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.global-send-btn {
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s;
+}
+
+.global-send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+}
+
+/* Footer */
+footer {
+  background-color: #34495e;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
+}

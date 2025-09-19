@@ -1,0 +1,172 @@
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+}
+
+/* Header */
+.header {
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+.header h1 {
+  margin: 0;
+  font-size: 42px;
+  letter-spacing: 2px;
+}
+.header h1 span { color: #3498db; }
+.header .nav {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.header .nav a {
+  background: #3498db;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.header .nav a:hover { background: #2980b9; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(rgba(44,62,80,0.8), rgba(44,62,80,0.8)),
+              url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 70px 20px;
+}
+.hero h2 { font-size: 28px; margin-bottom: 10px; }
+.hero p { font-size: 16px; margin-bottom: 20px; }
+
+/* Job Application Form */
+.form-section {
+  background: white;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.form-section h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 24px;
+  border-bottom: 2px solid #3498db;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+.form-group {
+  margin-bottom: 18px;
+}
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+/* Gender Selection - Centered Cards */
+.gender-options {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 12px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.gender-card {
+  width: 130px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  color: #333;
+  background: #f9f9f9;
+}
+
+.gender-card i {
+  font-size: 28px;
+  margin-bottom: 8px;
+  display: block;
+  color: #3498db;
+}
+
+.gender-card:hover {
+  border-color: #3498db;
+  background: #ecf6fd;
+  transform: translateY(-3px);
+}
+
+input[type="radio"]:checked + .gender-card {
+  border-color: #3498db;
+  background: #d6ebfb;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+  color: #2c3e50;
+  transform: scale(1.05);
+}
+
+/* Submit Button */
+.btn-submit {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-submit:hover { background: #2980b9; }
+
+/* Error message */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  display: none;
+}
+
+/* Footer */
+.footer {
+  background: #1a2530;
+  color: white;
+  text-align: center;
+  padding: 20px 15px;
+  margin-top: 50px;
+}
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.footer a:hover { color: #3498db; }
