@@ -82,9 +82,15 @@ if ($_SERVER["REQUEST_METHOD"]=="GET" && isset($_GET['back'])){
 <link rel="stylesheet" href="IRMS_CV_submit.css" type="text/css">
 </head>
 <body>
-<header>CV Submission - IRMS</header>
-<div class="main">
 
+<!-- Header -->
+<header>
+  <a href="IRMS_CV_submit.php" style="text-decoration: none; color: inherit;">
+    CV Submission - IRMS
+  </a>
+</header>
+
+<div class="main">
 <?php
 if (!empty($errors)) {
     echo '<div class="error-messages"><ul>';
