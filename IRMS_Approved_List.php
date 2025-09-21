@@ -15,7 +15,7 @@ $applicants = [
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Approved List</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="IRMS_Approved_List[1].css"/>
+  <link rel="stylesheet" href="IRMS_Approved_List.css"/>
 </head>
 <body>
 <header class="header">

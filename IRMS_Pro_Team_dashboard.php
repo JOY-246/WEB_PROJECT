@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>IRMS Pro. Team Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="IRMS_Pro_Team_dashboard[1].css" type="text/css"/>
+  <link rel="stylesheet" href="IRMS_Pro_Team_dashboard.css" type="text/css"/>
 </head>
 <body>
 

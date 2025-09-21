@@ -58,13 +58,18 @@ if (isset($_POST['back'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Staff Product Dashboard - IRMS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="IRMS_Staff_Product_dashboard.css?v=9">
+  <link rel="stylesheet" href="IRMS_Staff_Product_dashboard.css?v=11">
 </head>
 <body>
 
 <header>
+  <!-- Home button (left) -->
   <a href="IRMS_profile.php" class="home-btn"><i class="fas fa-home"></i> Home</a>
-  <a href="IRMS_Staff_Product_dashboard.php" class="title-link">Staff Product Dashboard</a>
+
+  <!-- Title in center as underlined hyperlink -->
+  <a href="IRMS_Staff_Product_dashboard.php?refresh=<?= time(); ?>" class="title-link">Staff_Product_Dashboard</a>
+
+  <!-- Logout button (right) -->
   <a href="IRMS_Staff_Product_dashboard.php?logout=true" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </header>
 
