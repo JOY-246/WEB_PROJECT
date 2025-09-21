@@ -12,7 +12,6 @@
 <header class="header"> 
   <div class="nav-buttons"> 
     <a href="previouspage.html"><i class="fas fa-arrow-left"></i> Back</a> 
-    <a href="nextpage.html">Next <i class="fas fa-arrow-right"></i></a> 
   </div> 
   <h1>IR<span class="yellow">MS</span> Applicants</h1> 
 </header>

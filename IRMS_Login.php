@@ -56,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 switch ($role) {
                     case "Staff": header("Location: IRMS_Staff_Product_dashboard.php"); exit;
                     case "Deliveryman": header("Location: IRMS_Peon_order.php"); exit;
-                    case "Manager": header("Location: IRMS_Manager_dashboard[1].php"); exit;
-                    case "Procurement": header("Location: IRMS_Pro_Team_dashboard[1].php"); exit;
+                    case "Manager": header("Location: IRMS_Manager_dashboard.php"); exit;
+                    case "Procurement": header("Location: IRMS_Pro_Team_dashboard.php"); exit;
                     case "Admin": header("Location: IRMS_Admin_dashboard.php"); exit;
                 }
             } else {
@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     case "Staff": header("Location: IRMS_Staff_job.php"); exit;
                     case "Deliveryman": header("Location: IRMS_Peon_job.php"); exit;
                     case "Manager": header("Location: IRMS_Manager_job.php"); exit;
-                    case "Procurement": header("Location: IRMS_Pro_Team_dashboard[1].php"); exit;
+                    case "Procurement": header("Location: IRMS_Pro_Team_dashboard.php"); exit;
                     case "Admin": header("Location: IRMS_Admin_dashboard.php"); exit;
                 }
             } else {

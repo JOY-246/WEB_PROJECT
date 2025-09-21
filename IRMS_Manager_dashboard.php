@@ -27,7 +27,6 @@ $totalActive = $teamMembers + $deliveryMen;
 <div class="header">
   <div class="nav-buttons">
     <a href="IRMS_Access_system.php" class="nav-btn"><i class="fas fa-arrow-left"></i> Back</a>
-    <a href="#" class="nav-btn">Next <i class="fas fa-arrow-right"></i></a>
   </div>
   <h1>IR<span>MS</span> Manager Dashboard</h1>
 </div>

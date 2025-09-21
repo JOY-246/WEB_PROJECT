@@ -12,7 +12,6 @@
 <header class="header">
   <div class="nav-buttons">
     <a href="#" id="backBtn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</a>
-    <a href="#" id="nextBtn" onclick="goNext()">Next <i class="fas fa-arrow-right"></i></a>
   </div>
   <h1>IR<span>MS</span> Pro. Team Dashboard</h1>
 </header>
@@ -78,7 +77,6 @@
   }
 
   function goBack(){ window.location.href = 'previouspage.html'; }
-  function goNext(){ window.location.href = 'nextpage.html'; }
 
   function calculateTotals(){
     let staffTotal = 0;
