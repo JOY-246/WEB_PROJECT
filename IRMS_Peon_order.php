@@ -67,7 +67,7 @@ $cancelled_orders = count(array_filter($orders, fn($o) => $o['status'] === 'canc
 
 <header>
   <a href="IRMS_profile.php" class="home-btn"><i class="fas fa-home"></i> Home</a>
-  <a href="IRMS_Peon_order.php" class="title-link">Peon Product Dashboard</a>
+  <a href="IRMS_Peon_order.php" class="title-link">Delivery-Man Product Dashboard</a>
   <a href="IRMS_Peon_order.php?logout=true" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </header>
 

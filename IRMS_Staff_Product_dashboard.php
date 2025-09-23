@@ -7,6 +7,8 @@ if ($mysqli->connect_error) {
     die("Database connection failed: " . $mysqli->connect_error);
 }
 
+$showBanner = false; // notification flag
+
 // 🔹 Handle logout
 if (isset($_GET['logout'])) {
     session_unset();
@@ -41,8 +43,7 @@ if (isset($_POST['send_to_delivery']) && isset($_POST['selected_products'])) {
         $insert->close();
     }
 
-    header("Location: IRMS_Peon_order.php");
-    exit();
+    $showBanner = true; // Show DONE notification
 }
 
 // Handle Back
@@ -54,22 +55,26 @@ if (isset($_POST['back'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Staff Product Dashboard - IRMS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="IRMS_Staff_Product_dashboard.css?v=11">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Product Dashboard - IRMS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="IRMS_Staff_Product_dashboard.css?v=12">
 </head>
 <body>
 
+<?php if($showBanner): ?>
+<div id="successBanner" class="center-banner">
+    <i class="fas fa-check-circle"></i> DONE
+</div>
+<script>
+setTimeout(()=>{document.getElementById("successBanner").style.display="none";},3000);
+</script>
+<?php endif; ?>
+
 <header>
-  <!-- Home button (left) -->
   <a href="IRMS_profile.php" class="home-btn"><i class="fas fa-home"></i> Home</a>
-
-  <!-- Title in center as underlined hyperlink -->
   <a href="IRMS_Staff_Product_dashboard.php?refresh=<?= time(); ?>" class="title-link">Staff_Product_Dashboard</a>
-
-  <!-- Logout button (right) -->
   <a href="IRMS_Staff_Product_dashboard.php?logout=true" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </header>
 
@@ -101,7 +106,6 @@ if (isset($_POST['back'])) {
       </table>
     </div>
 
-    <!-- Send button near the bottom -->
     <div class="send-btn-container">
       <button type="submit" name="send_to_delivery" class="global-send-btn">
         <i class="fas fa-truck"></i> Send to Delivery Man
@@ -110,9 +114,7 @@ if (isset($_POST['back'])) {
   </form>
 </div>
 
-<footer>
-  © 2025 Inventory Requisition & Management System
-</footer>
+<footer>© 2025 Inventory Requisition & Management System</footer>
 
 </body>
 </html>
