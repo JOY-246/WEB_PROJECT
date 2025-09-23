@@ -13,6 +13,8 @@ if ($mysqli->connect_error) {
     die("Database connection failed: " . $mysqli->connect_error);
 }
 
+$showBanner = false; // flag for success notification
+
 // Handle Add Product
 if (isset($_POST['add_product'])) {
     $pid = $_POST['product_id'];
@@ -72,20 +74,19 @@ if (isset($_POST['send_to_staff']) && isset($_POST['selected_products'])) {
         $insert->execute();
         $insert->close();
     }
-    header("Location: IRMS_Staff_Product_dashboard.php");
-    exit();
+
+    $showBanner = true; // show notification
 }
 
 // Fetch products
 $result = $mysqli->query("SELECT * FROM products");
 $products = $result->fetch_all(MYSQLI_ASSOC);
 
-// Handle logout (redirect to IRMS_Access_system.php)
+// Handle logout
 if (isset($_POST['logout'])) {
     $_SESSION = [];
     session_unset();
     session_destroy();
-
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
         setcookie(session_name(), '', time() - 42000,
@@ -93,7 +94,6 @@ if (isset($_POST['logout'])) {
             $params["secure"], $params["httponly"]
         );
     }
-
     header("Location: IRMS_Access_system.php");
     exit();
 }
@@ -102,24 +102,28 @@ if (isset($_POST['logout'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Product Dashboard - IRMS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="IRMS_Admin_Product_dashboard.css?v=4">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Product Dashboard - IRMS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="IRMS_Admin_Product_dashboard.css?v=5">
 </head>
 <body>
 
-<header>
-  <!-- Home button -->
-  <a href="IRMS_Admin_Product_dashboard.php" class="home-btn"><i class="fas fa-home"></i> Home</a>
+<?php if($showBanner): ?>
+<div id="successBanner" class="center-banner">
+    <i class="fas fa-check-circle"></i> Order sent successfully
+</div>
+<script>
+    setTimeout(()=>{document.getElementById("successBanner").style.display="none";},3000);
+</script>
+<?php endif; ?>
 
-  <!-- Dashboard link (click to refresh) -->
+<header>
+  <a href="IRMS_Admin_Product_dashboard.php" class="home-btn"><i class="fas fa-home"></i> Home</a>
   <a href="IRMS_Admin_Product_dashboard.php" class="dashboard-link">
     Admin Product Dashboard - Logged in as: <?= htmlspecialchars($_SESSION['admin_email']) ?>
   </a>
-
-  <!-- Logout button -->
   <form method="post" class="logout-form">
     <button type="submit" name="logout" class="logout-btn">
       Logout <i class="fas fa-sign-out-alt"></i>
@@ -138,7 +142,7 @@ if (isset($_POST['logout'])) {
 
   <form method="post">
     <div class="table-container">
-      <table id="productTable" class="product-table">
+      <table id="productTable">
         <thead>
           <tr>
             <th>Select</th>
@@ -170,14 +174,11 @@ if (isset($_POST['logout'])) {
         </tbody>
       </table>
     </div>
-
     <button type="submit" name="send_to_staff" class="global-send-btn">Send to Staff</button>
   </form>
 </div>
 
-<footer>
-  © 2025 Inventory Requisition & Management System
-</footer>
+<footer>© 2025 Inventory Requisition & Management System</footer>
 
 <!-- Add Modal -->
 <div id="addModal" class="modal">
@@ -213,47 +214,32 @@ if (isset($_POST['logout'])) {
 </div>
 
 <script>
-/* Search */
 function validateSearch() {
   let input = document.getElementById("searchInput").value.trim();
-  if (input === "") {
-    alert("Please enter a Product ID or Name to search.");
-    return;
-  }
-  filterTable(input);
-}
-function filterTable(query) {
-  let filter = query.toUpperCase();
+  if (!input) { alert("Please enter a Product ID or Name."); return; }
+  let filter = input.toUpperCase();
   let table = document.getElementById("productTable");
   let tr = table.getElementsByTagName("tr");
-  for (let i = 1; i < tr.length; i++) {
+  for (let i=1;i<tr.length;i++){
     let tdId = tr[i].getElementsByTagName("td")[1];
     let tdName = tr[i].getElementsByTagName("td")[2];
-    if (tdId || tdName) {
-      let idValue = tdId.textContent || tdId.innerText;
-      let nameValue = tdName.textContent || tdName.innerText;
-      if (idValue.toUpperCase().indexOf(filter) > -1 || nameValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
+    let idValue = tdId.textContent || tdId.innerText;
+    let nameValue = tdName.textContent || tdName.innerText;
+    tr[i].style.display = (idValue.toUpperCase().indexOf(filter)>-1 || nameValue.toUpperCase().indexOf(filter)>-1) ? "" : "none";
   }
 }
 
-/* Add Modal */
-function openAddModal() { document.getElementById("addModal").style.display = "flex"; }
-function closeAddModal() { document.getElementById("addModal").style.display = "none"; }
+function openAddModal(){ document.getElementById("addModal").style.display="flex"; }
+function closeAddModal(){ document.getElementById("addModal").style.display="none"; }
 
-/* Edit Modal */
-function openEditModal(id, pid, pname, price) {
-  document.getElementById("editId").value = id;
-  document.getElementById("editProductId").value = pid;
-  document.getElementById("editProductName").value = pname;
-  document.getElementById("editProductPrice").value = price;
-  document.getElementById("editModal").style.display = "flex";
+function openEditModal(id,pid,pname,price){
+  document.getElementById("editId").value=id;
+  document.getElementById("editProductId").value=pid;
+  document.getElementById("editProductName").value=pname;
+  document.getElementById("editProductPrice").value=price;
+  document.getElementById("editModal").style.display="flex";
 }
-function closeEditModal() { document.getElementById("editModal").style.display = "none"; }
+function closeEditModal(){ document.getElementById("editModal").style.display="none"; }
 </script>
 
 </body>
