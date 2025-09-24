@@ -57,11 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Header -->
 <div class="header">
-  <h1>
-    <a href="IRMS_Apply_job.php" style="text-decoration: none; color: inherit;">
-      IR<span>MS</span>
-    </a>
-  </h1>
+  <h1>IR<span>MS</span></h1>
   <div class="nav">
     <a href="IRMS_profile.php"><i class="fas fa-arrow-left"></i> Back</a>
   </div>
