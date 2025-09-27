@@ -88,10 +88,10 @@ if (isset($_GET['login']) && $_GET['login'] === 'true') {
     </a>
 
     <ul class="footer-links">
-        <li><a href="about.html">About</a></li> |
-        <li><a href="privacy.html">Privacy</a></li> |
-        <li><a href="terms.html">Terms</a></li> |
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">About</a></li> |
+        <li><a href="#">Privacy</a></li> |
+        <li><a href="#">Terms</a></li> |
+        <li><a href="#">Contact</a></li>
     </ul>
 </div>
 
