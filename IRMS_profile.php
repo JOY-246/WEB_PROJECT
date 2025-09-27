@@ -48,7 +48,7 @@ if (isset($_GET['login']) && $_GET['login'] === 'true') {
 <!-- Hero -->
 <div class="hero">
     <h2>Inventory Requisition & Management System</h2>
-    <p>Streamline your inventory management, requisition processes, and delivery tracking with our comprehensive solution.</p>
+    <p>Streamline your inventory management, requisition processes and delivery tracking with our comprehensive solution.</p>
 </div>
 
 <!-- Features -->

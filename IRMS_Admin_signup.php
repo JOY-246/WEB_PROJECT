@@ -84,7 +84,8 @@ $conn->close();
       <i class="fas fa-arrow-left"></i> Back
     </a>
   </div>
-  <h1>IR<span>MS</span></h1>
+  <h1>
+    <a href="IRMS_Admin_signup.php" style="color:white;">IR<span>MS</span></h1>
 </div>
 
 <!-- Sign Up / Login Form -->

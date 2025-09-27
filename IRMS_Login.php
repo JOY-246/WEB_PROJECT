@@ -137,7 +137,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <div class="nav">
     <a href="IRMS_Access_system.php"><i class="fas fa-arrow-left"></i> Back</a>
   </div>
-  <h1>IR<span>MS</span></h1>
+  <h1>
+    <a href="IRMS_Login.php?role=Staff" style="color:white;">IR<span>MS</span></h1>
 </div>
 
 <div class="container">
