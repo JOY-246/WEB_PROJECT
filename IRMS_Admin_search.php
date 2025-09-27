@@ -6,6 +6,7 @@
 <title>Admin - View Users</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="IRMS_Admin_search.css" type="text/css">
+<link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
 
