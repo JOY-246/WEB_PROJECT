@@ -20,6 +20,7 @@ $totalActive = $teamMembers + $deliveryMen;
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="IRMS_Manager_dashboard.css">
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
 
@@ -43,9 +44,6 @@ $totalActive = $teamMembers + $deliveryMen;
     </div>
     <div class="sidebar-option" data-target="salary">
       <i class="fas fa-money-bill-wave"></i> Salary
-    </div>
-    <div class="sidebar-option" data-target="product-management">
-      <i class="fas fa-boxes"></i> Product Management
     </div>
   </div>
 
@@ -129,54 +127,7 @@ $totalActive = $teamMembers + $deliveryMen;
           <div class="salary-item total"><span>Total Monthly Salary Expenditure</span><span class="salary-value">$48,550.00</span></div>
         `;
         break;
-
-      case 'product-management':
-        contentHeader.innerHTML = '<i class="fas fa-boxes"></i> Product Management';
-        const products = [
-          { name: "Chair", icon: "fas fa-chair", qty: 25 },
-          { name: "Table", icon: "fas fa-table", qty: 15 },
-          { name: "Computer", icon: "fas fa-desktop", qty: 40 }
-        ];
-        renderProducts(products);
-        break;
     }
-  }
-
-  // Render Products with Add More
-  function renderProducts(products) {
-    const contentBody = document.querySelector('.salary-details');
-    contentBody.innerHTML = "";
-
-    let total = 0;
-    products.forEach(p => {
-      total += p.qty;
-      contentBody.innerHTML += `
-        <div class="salary-item">
-          <span><i class="${p.icon}"></i> ${p.name}</span>
-          <span class="salary-value">${p.qty}</span>
-        </div>
-      `;
-    });
-
-    contentBody.innerHTML += `
-      <div class="salary-item total">
-        <span>Total Products</span>
-        <span class="salary-value">${total}</span>
-      </div>
-    `;
-
-    const addBtn = document.createElement("button");
-    addBtn.textContent = "Add More";
-    addBtn.className = "add-btn";
-    addBtn.onclick = () => {
-      const name = prompt("Enter product name:");
-      const qty = parseInt(prompt("Enter quantity:"), 10);
-      if (name && !isNaN(qty) && qty > 0) {
-        products.push({ name, icon: "fas fa-box", qty });
-        renderProducts(products);
-      }
-    };
-    contentBody.appendChild(addBtn);
   }
 </script>
 

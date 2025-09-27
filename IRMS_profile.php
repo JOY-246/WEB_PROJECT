@@ -26,9 +26,10 @@ if (isset($_GET['login']) && $_GET['login'] === 'true') {
 <head>
     <title>IRMS - Inventory Requisition & Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="IRMS_profile.css" type="text/css">
+    <link rel="icon" type="image/png" href="imgs/favicon.png">
+
 </head>
 <body>
 

@@ -1,5 +1,7 @@
 <?php
 $roleFilter = isset($_GET['role']) ? $_GET['role'] : null;
+$returnPage = isset($_GET['return']) ? $_GET['return'] : 'IRMS_Applicants.php';
+
 $applicants = [
   ['name'=>"John Doe",'email'=>"john@example.com",'role'=>"Staff",'status'=>"Pending",'skills'=>"Excel, Reporting",'experience'=>"3 years"],
   ['name'=>"Mary Smith",'email'=>"mary@example.com",'role'=>"Delivery Man",'status'=>"Approved",'skills'=>"", 'experience'=>"5 years"],
@@ -16,12 +18,15 @@ $applicants = [
   <title>Approved List</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="stylesheet" href="IRMS_Approved_List.css"/>
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
 <header class="header">
   <h1>IR<span class="yellow">MS</span> Approved List</h1>
   <div class="nav-buttons">
-    <a href="IRMS_Applicants.php"><i class="fas fa-arrow-left"></i> Back to All Applicants</a>
+    <a href="<?php echo htmlspecialchars($returnPage); ?>">
+      <i class="fas fa-arrow-left"></i> Back
+    </a>
   </div>
 </header>
 

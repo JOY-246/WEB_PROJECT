@@ -1,5 +1,4 @@
 /* IRMS_Applicants.css */
-
 body{
   margin:0;
   font-family:"Segoe UI",Arial,sans-serif;
@@ -164,9 +163,9 @@ th{
   flex:1;
   padding:20px 10px;
   margin:0 6px;
-  border-radius:12px;   /* Rounded */
+  border-radius:12px;
   color:#fff;
-  cursor:pointer;       /* Clickable */
+  cursor:pointer;
   box-shadow:0 4px 10px rgba(0,0,0,0.2);
   transition:transform 0.2s;
 }

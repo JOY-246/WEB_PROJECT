@@ -16,6 +16,24 @@ header {
   font-size: 24px;
   font-weight: bold;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logout button */
+header a {
+  color: #e74c3c;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid #e74c3c;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+header a:hover {
+  background-color: #e74c3c;
+  color: white;
 }
 
 /* Back button */
@@ -124,28 +142,6 @@ header {
 }
 .custom-skill button:hover {
   background: #219150;
-}
-
-/* Experience input */
-.experience-container {
-  margin: 30px 0;
-  text-align: center;
-}
-.experience-container label {
-  font-weight: bold;
-  font-size: 18px;
-  color: #fff;
-  background: linear-gradient(90deg, #f39c12, #e74c3c);
-  padding: 10px 20px;
-  border-radius: 8px;
-}
-.experience-container input {
-  width: 60px;
-  padding: 8px;
-  font-size: 16px;
-  margin-left: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
 /* Submit button */

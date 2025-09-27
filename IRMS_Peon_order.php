@@ -62,6 +62,7 @@ $cancelled_orders = count(array_filter($orders, fn($o) => $o['status'] === 'canc
 <title>Peon Product Dashboard - IRMS</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="IRMS_Peon_order.css">
+<link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
 

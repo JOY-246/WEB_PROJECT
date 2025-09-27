@@ -1,4 +1,37 @@
-<!DOCTYPE html> 
+<?php
+session_start();
+
+// Redirect if not Manager
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== "Manager") {
+    header("Location: IRMS_Access_system.php");
+    exit();
+}
+
+// DB Connection
+$conn = new mysqli("localhost", "root", "", "irms_db");
+if ($conn->connect_error) die("DB Connection failed: " . $conn->connect_error);
+
+// Handle Approve/Reject actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'])) {
+    $id = intval($_POST['id']);
+    $action = $_POST['action'] === 'Approve' ? 'Approved' : 'Rejected';
+
+    $stmt = $conn->prepare("UPDATE job_applications SET status=? WHERE id=?");
+    $stmt->bind_param("si", $action, $id);
+    $stmt->execute();
+    $stmt->close();
+}
+
+// Fetch all applicants
+$result = $conn->query("SELECT * FROM job_applications ORDER BY apply_date DESC");
+$applicants = [];
+while ($row = $result->fetch_assoc()) {
+    $applicants[] = $row;
+}
+$conn->close();
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -6,12 +39,13 @@
 <title>IRMS Applicants</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <link rel="stylesheet" href="IRMS_Applicants.css"/>
+<link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
 
 <header class="header"> 
   <div class="nav-buttons"> 
-    <a href="previouspage.html"><i class="fas fa-arrow-left"></i> Back</a> 
+    <a href="IRMS_Manager_dashboard.php"><i class="fas fa-arrow-left"></i> Back</a> 
   </div> 
   <h1>IR<span class="yellow">MS</span> Applicants</h1> 
 </header>
@@ -34,28 +68,56 @@
             <th>Role</th>
             <th>Skills</th>
             <th>Experience</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="applicantList"></tbody>
+        <tbody>
+          <?php foreach ($applicants as $a): ?>
+          <tr>
+            <td><?= htmlspecialchars($a['name']) ?></td>
+            <td><?= htmlspecialchars($a['email']) ?></td>
+            <td><?= htmlspecialchars($a['position']) ?></td>
+            <td><?= $a['position'] === 'Staff' ? htmlspecialchars($a['skills']) : 'N/A' ?></td>
+            <td><?= $a['position'] === 'Staff' ? htmlspecialchars($a['experience']) : 'N/A' ?></td>
+            <td><?= htmlspecialchars($a['status']) ?></td>
+            <td>
+              <?php if ($a['status'] === 'Pending'): ?>
+              <form method="post" style="display:inline;">
+                <input type="hidden" name="id" value="<?= $a['id'] ?>">
+                <button type="submit" name="action" value="Approve" class="approve-btn"><i class="fas fa-check"></i> Approve</button>
+              </form>
+              <form method="post" style="display:inline;">
+                <input type="hidden" name="id" value="<?= $a['id'] ?>">
+                <button type="submit" name="action" value="Reject" class="reject-btn"><i class="fas fa-times"></i> Reject</button>
+              </form>
+              <?php else: ?>
+                <button disabled style="opacity:0.5;"><?= htmlspecialchars($a['status']) ?></button>
+              <?php endif; ?>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
       </table>
     </section>
 
     <!-- Application Status -->
     <section id="status" class="card view" style="display:none;">
       <div class="content-header"><i class="fas fa-clipboard-check"></i> Application Status</div>
+      <?php
+      $pending = array_filter($applicants, fn($a)=>$a['status']==='Pending');
+      $approved = array_filter($applicants, fn($a)=>$a['status']==='Approved');
+      ?>
       <div class="status-counts">
         <div class="pending clickable" onclick="showList('Pending')">
-          Pending List<br><span id="pendingCount">0</span>
+          Pending List<br><span id="pendingCount"><?= count($pending) ?></span>
         </div>
         <div class="approved clickable" onclick="showList('Approved')">
-          Approved List<br><span id="approvedCount">0</span>
+          Approved List<br><span id="approvedCount"><?= count($approved) ?></span>
         </div>
       </div>
 
-      <div id="statusList" style="margin-top:20px;">
-        <!-- Dynamic Table will be injected here -->
-      </div>
+      <div id="statusList" style="margin-top:20px;"></div>
     </section>
   </main>
 </div>
@@ -63,67 +125,23 @@
 <footer>&copy; 2025 Inventory Requisition & Management System</footer>
 
 <script>
-// Initial applicants
-let applicants = [
-  {name:"John Doe", email:"john@example.com", role:"Staff", status:"Pending", skills:"Excel, Reporting", experience:"3 years"},
-  {name:"Mary Smith", email:"mary@example.com", role:"Delivery Man", status:"Approved", skills:"", experience:"5 years"},
-  {name:"Ali Khan", email:"ali@example.com", role:"Staff", status:"Rejected", skills:"Inventory, Logistics", experience:"2 years"},
-  {name:"Sophia Lee", email:"sophia@example.com", role:"Delivery Man", status:"Pending", skills:"", experience:"1 year"}
-];
+const applicants = <?= json_encode($applicants) ?>;
 
-// SPA Render functions
-function renderApplicants(){
-  const container = document.getElementById('applicantList');
-  container.innerHTML = "";
-  applicants.forEach((a,index)=>{
-    const skillsText = a.role === "Delivery Man" ? "N/A" : a.skills;
-    const approveDisabled = a.status !== "Pending" ? "disabled" : "";
-    const rejectDisabled = a.status !== "Pending" ? "disabled" : "";
-
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${a.name}</td>
-      <td>${a.email}</td>
-      <td>${a.role}</td>
-      <td>${skillsText}</td>
-      <td>${a.experience}</td>
-      <td class="status-btns">
-        <button class="approve-btn" onclick="updateStatus(${index}, 'Approved')" ${approveDisabled}
-          style="${a.status==='Approved'?'background:#218838;':''}">Approve</button>
-        <button class="reject-btn" onclick="updateStatus(${index}, 'Rejected')" ${rejectDisabled}
-          style="${a.status==='Rejected'?'background:#bd2130;':''}">Reject</button>
-      </td>
-    `;
-    container.appendChild(row);
-  });
-  updateCounts();
+function show(id){
+  document.querySelectorAll('.view').forEach(s=> s.style.display='none');
+  document.getElementById(id).style.display='block';
 }
 
-function updateStatus(index, status){
-  applicants[index].status = status;
-  renderApplicants();
-  updateCounts();
-  if(currentList) showList(currentList);
-}
-
-function updateCounts(){
-  document.getElementById('pendingCount').innerText = applicants.filter(a=>a.status==="Pending").length;
-  document.getElementById('approvedCount').innerText = applicants.filter(a=>a.status==="Approved").length;
-}
-
-let currentList = null; // track which list is being displayed
-
+let currentList = null;
 function showList(status){
   currentList = status;
   const container = document.getElementById('statusList');
   container.innerHTML = "";
-
   const filtered = applicants.filter(a => a.status === status);
-  if(filtered.length === 0){
-    container.innerHTML = "<p>No applicants.</p>";
+  if(filtered.length===0){
+    container.innerHTML="<p>No applicants.</p>";
     return;
   }
-
   const table = document.createElement('table');
   table.innerHTML = `
     <thead>
@@ -135,34 +153,22 @@ function showList(status){
         <th>Experience</th>
       </tr>
     </thead>
-    <tbody>
-    </tbody>
+    <tbody></tbody>
   `;
-
   const tbody = table.querySelector('tbody');
-  filtered.forEach(a => {
-    const skillsText = a.role === "Delivery Man" ? "N/A" : a.skills;
+  filtered.forEach(a=>{
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${a.name}</td>
       <td>${a.email}</td>
-      <td>${a.role}</td>
-      <td>${skillsText}</td>
-      <td>${a.experience}</td>
+      <td>${a.position}</td>
+      <td>${a.position==='Staff'?a.skills:'N/A'}</td>
+      <td>${a.position==='Staff'?a.experience:'N/A'}</td>
     `;
     tbody.appendChild(row);
   });
-
   container.appendChild(table);
 }
-
-function show(id){
-  document.querySelectorAll('.view').forEach(s=> s.style.display='none');
-  document.getElementById(id).style.display='block';
-}
-
-renderApplicants();
-updateCounts();
 </script>
 </body>
 </html>

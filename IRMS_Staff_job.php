@@ -3,6 +3,14 @@
 session_set_cookie_params(600);
 session_start();
 
+// 🔹 Handle logout
+if (isset($_GET['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: IRMS_Access_system.php");
+    exit();
+}
+
 // Redirect if no role set
 if (!isset($_SESSION['role'])) {
     session_unset();
@@ -32,12 +40,12 @@ if ($email) {
     $conn = new mysqli("localhost", "root", "", "irms_db");
     if ($conn->connect_error) die("DB Connection failed: " . $conn->connect_error);
 
-    $stmt = $conn->prepare("SELECT fullname, phone, gender FROM job_applications WHERE email=? ORDER BY apply_date DESC LIMIT 1");
+    $stmt = $conn->prepare("SELECT name, phone, gender FROM job_applications WHERE email=? ORDER BY apply_date DESC LIMIT 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->bind_result($dbFullname, $dbPhone, $dbGender);
+    $stmt->bind_result($dbname, $dbPhone, $dbGender);
     if ($stmt->fetch()) {
-        $fullname = $dbFullname;
+        $name = $dbname;
         $phone = $dbPhone;
         $gender = $dbGender;
     }
@@ -61,11 +69,19 @@ if ($email) {
 <title>Staff Job - IRMS</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="IRMS_Staff_job.css" type="text/css">
+<link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
 
 <header>
   <?= htmlspecialchars($role) ?> Skills Selection
+
+  <!--  Logout button on header corner -->
+  <a href="?logout=true" 
+     class="logout-btn" 
+     style="float:right; margin-right:15px; color:#fff; background:#e74c3c; padding:6px 12px; border-radius:5px; text-decoration:none;">
+     <i class="fas fa-sign-out-alt"></i> Logout
+  </a>
 </header>
 
 <div class="main">
