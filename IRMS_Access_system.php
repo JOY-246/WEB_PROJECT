@@ -49,6 +49,7 @@ if (isset($_SESSION['role'])) {
     <title>Select Role - IRMS Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="IRMS_Access_system.css">
+    <link rel="icon" type="image/png" href="imgs/favicon.png">
 </head>
 <body>
     <header>
