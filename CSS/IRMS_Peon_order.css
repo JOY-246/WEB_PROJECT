@@ -32,6 +32,6 @@ footer { background:#2c3e50; color:white; padding:15px; margin-top:20px; }
 .summary div { padding:15px 25px; border-radius:6px; color:white; font-weight:bold; }
 .total { background:#3498db; }
 .confirmed { background:#27ae60; }
-.cancelled { background:#e74c3c; }
+.cancelled { background:#563ce7; }
 .search-box { margin:15px; }
 .search-box input { padding:8px; width:250px; border:1px solid #ccc; border-radius:4px; }
